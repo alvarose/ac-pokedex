@@ -21,7 +21,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.input.nestedscroll.nestedScroll
-import com.ase.pokedex.ui.screens.Navigation
+import com.ase.pokedex.ui.common.navigation.Navigation
 import com.ase.pokedex.ui.theme.PokeColor
 import com.ase.pokedex.ui.theme.PokemonTheme
 

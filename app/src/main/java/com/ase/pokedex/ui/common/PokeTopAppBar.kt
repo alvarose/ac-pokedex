@@ -21,7 +21,7 @@ fun PokeTopAppBar(
         title = {
             Text(
                 text = title,
-                fontWeight = FontWeight.SemiBold
+                fontWeight = FontWeight.SemiBold,
             )
         },
         scrollBehavior = scrollBehavior,

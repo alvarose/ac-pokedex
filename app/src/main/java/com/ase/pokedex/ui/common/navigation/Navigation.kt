@@ -1,13 +1,11 @@
-package com.ase.pokedex.ui.screens
+package com.ase.pokedex.ui.common.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.navArgument
-import com.ase.pokedex.data.model.Pokemon
+import androidx.navigation.toRoute
 import com.ase.pokedex.ui.screens.detail.DetailScreen
 import com.ase.pokedex.ui.screens.detail.DetailViewModel
 import com.ase.pokedex.ui.screens.home.HomeScreen
@@ -18,16 +16,13 @@ fun Navigation() {
 
     NavHost(
         navController = navController,
-        startDestination = "home"
+        startDestination = Home
     ) {
-        composable("home") {
-            HomeScreen { pokemon -> navController.navigate("pokemon/${pokemon.id}") }
+        composable<Home> {
+            HomeScreen { pokemon -> navController.navigate(PokemonDetail(pokemon.id)) }
         }
-        composable(
-            "pokemon/{pokemonId}",
-            arguments = listOf(navArgument(name = "pokemonId") { type = NavType.Companion.IntType })
-        ) { backStackEntry ->
-            val pokemonId = requireNotNull(backStackEntry.arguments?.getInt("pokemonId"))
+        composable<PokemonDetail> { backStackEntry ->
+            val pokemonId = requireNotNull(backStackEntry.toRoute<PokemonDetail>().pokemonId)
             DetailScreen(
                 viewModel { DetailViewModel(pokemonId) }
             ) {

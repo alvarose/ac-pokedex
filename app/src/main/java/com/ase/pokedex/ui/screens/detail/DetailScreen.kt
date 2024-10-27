@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -26,12 +27,13 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
+import com.ase.pokedex.R
 import com.ase.pokedex.Screen
+import com.ase.pokedex.common.ex.getIcon
 import com.ase.pokedex.data.model.PokeType
 import com.ase.pokedex.ui.common.LoadingIndicator
 import com.ase.pokedex.ui.common.PokeTopAppBar
@@ -48,7 +50,7 @@ fun DetailScreen(
     val detailState = rememberDetailState()
     val state by vm.state.collectAsState()
 
-    detailState.ShowMessageEffect(message = state.message) { vm.onMessageShown() }
+//    detailState.ShowMessageEffect(message = state.message) { vm.onMessageShown() }
 
     Screen(scrollBehavior = detailState.scrollBehavior, topAppBar = { scrollBehavior ->
         PokeTopAppBar(
@@ -94,14 +96,26 @@ fun DetailScreen(
                     Column(
                         modifier = Modifier.weight(1f),
                     ) {
-                        Text(
-                            text = "n " + pokemon.id.toString().padStart(3, '0'),
-                            fontSize = 14.sp,
-                            fontWeight = FontWeight.SemiBold,
-                            lineHeight = 14.sp,
-                            color = PokeGrayLight,
-                            textAlign = TextAlign.Center,
-                        )
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.spacedBy(2.dp),
+                            modifier = Modifier.fillMaxWidth()
+                        ) {
+                            Icon(
+                                imageVector = getIcon(R.drawable.ic_pokeball),
+                                contentDescription = null,
+                                tint = PokeGrayLight,
+                                modifier = Modifier.size(12.dp)
+                            )
+                            Text(
+                                text = pokemon.id.toString().padStart(3, '0'),
+                                fontSize = 14.sp,
+                                fontWeight = FontWeight.SemiBold,
+                                lineHeight = 14.sp,
+                                color = PokeGrayLight,
+                            )
+                        }
+
                         Text(
                             text = pokemon.name,
                             fontSize = 24.sp,

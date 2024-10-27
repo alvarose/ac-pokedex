@@ -1,4 +1,4 @@
-package com.ase.pokedex.common
+package com.ase.pokedex.common.ex
 
 import android.content.Context
 import android.graphics.Bitmap
