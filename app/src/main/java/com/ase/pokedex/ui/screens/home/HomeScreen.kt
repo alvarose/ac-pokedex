@@ -72,6 +72,7 @@ fun HomeScreen(
             horizontalArrangement = Arrangement.spacedBy(8.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp),
             modifier = Modifier.fillMaxSize(),
+            state = homeState.lazyGridState
         ) {
             items(state.pokemon, key = { it.id }) { pokemon ->
                 PokemonItem(pokemon) { onPokemonClick(pokemon) }
