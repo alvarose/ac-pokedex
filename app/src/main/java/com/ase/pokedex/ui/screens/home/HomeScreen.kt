@@ -57,7 +57,7 @@ fun HomeScreen(
         scrollBehavior = homeState.scrollBehavior,
         topAppBar = { scrollBehavior ->
             PokeTopAppBar(
-                title = "Pokedex",
+                title = "Pokédex",
                 scrollBehavior = scrollBehavior
             )
         }

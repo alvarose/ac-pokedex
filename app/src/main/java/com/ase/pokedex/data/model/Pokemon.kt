@@ -13,6 +13,8 @@ data class Pokemon(
 
     val image: String
         get() = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/$id.png"
+
+    fun hasDataComplete() = types.isNotEmpty()
 }
 
 fun String.formatPokemonName(): String {

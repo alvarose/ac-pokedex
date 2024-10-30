@@ -1,12 +1,16 @@
-package com.ase.pokedex.data.api
+package com.ase.pokedex.data.datasource
 
+import com.ase.pokedex.data.datasource.remote.ApiClient
+import com.ase.pokedex.data.datasource.remote.PokeTypeResult
+import com.ase.pokedex.data.datasource.remote.PokemonResource
+import com.ase.pokedex.data.datasource.remote.PokemonResult
 import com.ase.pokedex.data.model.PokeType
 import com.ase.pokedex.data.model.Pokemon
 import com.ase.pokedex.data.model.formatPokemonName
 
-class PokemonRepository {
+class PokemonRemoteDataSource {
 
-    suspend fun fetchHeroes(): List<Pokemon> =
+    suspend fun fetchPokemon(): List<Pokemon> =
         ApiClient
             .instance
             .fetchPokemon()
@@ -14,7 +18,7 @@ class PokemonRepository {
                 it.toDomain()
             }
 
-    suspend fun fetchHeroById(id: Int): Pokemon =
+    suspend fun findPokemonById(id: Int): Pokemon =
         ApiClient
             .instance
             .fetchPokemonById(id)

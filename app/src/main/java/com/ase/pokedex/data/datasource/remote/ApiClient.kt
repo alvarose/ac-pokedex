@@ -1,4 +1,4 @@
-package com.ase.pokedex.data.api
+package com.ase.pokedex.data.datasource.remote
 
 import com.ase.pokedex.BuildConfig
 import kotlinx.serialization.json.Json
@@ -37,6 +37,5 @@ private fun authInterceptor(chain: Interceptor.Chain) = chain.proceed(
         .request()
         .newBuilder()
         .header("Accept", "application/json")
-        .header("Authorization", "Bearer ${BuildConfig.API_KEY}")
         .build()
 )

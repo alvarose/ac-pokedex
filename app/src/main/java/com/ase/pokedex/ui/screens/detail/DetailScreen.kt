@@ -41,16 +41,14 @@ import com.ase.pokedex.ui.theme.PokeBackgroundLight
 import com.ase.pokedex.ui.theme.PokeGray
 import com.ase.pokedex.ui.theme.PokeGrayLight
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
+@OptIn(ExperimentalMaterial3Api::class)
 fun DetailScreen(
     vm: DetailViewModel = viewModel(),
     onBack: () -> Unit = {},
 ) {
     val detailState = rememberDetailState()
     val state by vm.state.collectAsState()
-
-//    detailState.ShowMessageEffect(message = state.message) { vm.onMessageShown() }
 
     Screen(scrollBehavior = detailState.scrollBehavior, topAppBar = { scrollBehavior ->
         PokeTopAppBar(

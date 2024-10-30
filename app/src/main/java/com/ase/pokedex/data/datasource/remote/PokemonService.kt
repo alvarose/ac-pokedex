@@ -1,4 +1,4 @@
-package com.ase.pokedex.data.api
+package com.ase.pokedex.data.datasource.remote
 
 import retrofit2.http.GET
 import retrofit2.http.Path

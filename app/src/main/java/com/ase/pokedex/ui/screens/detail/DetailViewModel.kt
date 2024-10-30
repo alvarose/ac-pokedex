@@ -3,7 +3,8 @@ package com.ase.pokedex.ui.screens.detail
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ase.pokedex.data.model.Pokemon
-import com.ase.pokedex.data.api.PokemonRepository
+import com.ase.pokedex.data.PokemonRepository
+import com.ase.pokedex.data.datasource.PokemonRemoteDataSource
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -11,17 +12,15 @@ import kotlinx.coroutines.launch
 
 class DetailViewModel(
     private val id: Int,
+    private val repository: PokemonRepository
 ) : ViewModel() {
-
-    private val repository = PokemonRepository()
-
     private val _state = MutableStateFlow(UiState())
     val state get() = _state.asStateFlow()
 
     init {
         viewModelScope.launch {
             _state.value = UiState(loading = true)
-            _state.value = UiState(loading = false, pokemon = repository.fetchHeroById(id))
+            _state.value = UiState(loading = false, pokemon = repository.fetchPokemonById(id))
         }
     }
 
