@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.ksp)
 }
 
 android {
@@ -28,9 +29,6 @@ android {
 
         val props = Properties()
         props.load(project.rootProject.file("local.properties").readText().byteInputStream())
-
-        val apiKey = "API_KEY"
-        buildConfigField("String", apiKey, props.getProperty(apiKey, ""))
 
         val apiUrl = "API_URL"
         buildConfigField("String", apiUrl, props.getProperty(apiUrl, ""))
@@ -70,8 +68,15 @@ dependencies {
     implementation(libs.okhttp)
     implementation(libs.okhttp.logging)
 
+    // Google
+    implementation(libs.google.services.location)
+
     // Lottie
     implementation(libs.lottie)
+
+    // Room
+    implementation(libs.room.ktx)
+    ksp(libs.room.compiler)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
