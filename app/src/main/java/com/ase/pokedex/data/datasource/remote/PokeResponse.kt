@@ -17,7 +17,7 @@ data class PokemonResource(
 data class PokemonResult(
     val id: Int,
     val name: String,
-    val types: List<PokeTypeResource>
+    val types: List<PokeTypeResource>,
 )
 
 @Serializable

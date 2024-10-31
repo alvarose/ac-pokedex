@@ -11,4 +11,5 @@ data class PokemonEntity(
     val id: Int,
     val name: String,
     val types: String? = null,
+    val favorite: Boolean,
 )

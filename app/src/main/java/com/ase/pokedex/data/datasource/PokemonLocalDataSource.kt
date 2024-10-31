@@ -5,13 +5,14 @@ import com.ase.pokedex.data.datasource.database.PokemonEntity
 import com.ase.pokedex.data.model.PokeType
 import com.ase.pokedex.data.model.Pokemon
 import com.ase.pokedex.data.model.formatPokemonName
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
 class PokemonLocalDataSource(private val pokemonDao: PokemonDao) {
 
     val pokemonList = pokemonDao.fetchPokemonList().map { pokemonDb -> pokemonDb.map { it.toDomain() } }
 
-    fun findPokemonById(id: Int) = pokemonDao.findPokemonById(id).map { it?.toDomain() }
+    fun findPokemonById(id: Int): Flow<Pokemon?> = pokemonDao.findPokemonById(id).map { it?.toDomain() }
 
     suspend fun savePokemonList(pokemon: List<Pokemon>) = pokemonDao.savePokemon(pokemon.map { it.toEntity() })
 
@@ -26,6 +27,7 @@ private fun Pokemon.toEntity() = PokemonEntity(
     id = id,
     name = name.formatPokemonName(),
     types = types.map { it.name }.joinToString(separator = ","),
+    favorite = favorite
 )
 
 private fun PokemonEntity.toDomain() = Pokemon(
@@ -36,4 +38,5 @@ private fun PokemonEntity.toDomain() = Pokemon(
     } else {
         emptyList()
     },
+    favorite = favorite
 )

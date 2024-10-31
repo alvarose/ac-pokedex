@@ -16,3 +16,5 @@ val PokeGrayDark = Color(0xFF1e2528)
 val PokeGreen = Color(0xFF51ae5f)
 val PokeBlue = Color(0xFF28aafd)
 val PokeYellow = Color(0xFFfbdc18)
+
+val PokeFavorite = Color(0xFFffc95a)

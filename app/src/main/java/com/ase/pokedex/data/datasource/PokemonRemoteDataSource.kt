@@ -30,6 +30,7 @@ private fun PokemonResource.toDomain(): Pokemon {
     return Pokemon(
         id = pokemonId,
         name = name.formatPokemonName(),
+        favorite = false
     )
 }
 
@@ -37,6 +38,7 @@ private fun PokemonResult.toDomain() = Pokemon(
     id = id,
     name = name.formatPokemonName(),
     types = types.map { it.type.toDomain() },
+    favorite = false
 )
 
 private fun PokeTypeResult.toDomain() = PokeType.fromName(name)
