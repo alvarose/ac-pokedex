@@ -5,14 +5,15 @@ import com.ase.pokedex.data.datasource.database.PokemonEntity
 import com.ase.pokedex.data.model.PokeType
 import com.ase.pokedex.data.model.Pokemon
 import com.ase.pokedex.data.model.formatPokemonName
+import kotlinx.coroutines.flow.map
 
 class PokemonLocalDataSource(private val pokemonDao: PokemonDao) {
 
-    suspend fun fetchPokemon() = pokemonDao.fetchPokemonList().map { it.toDomain() }
+    val pokemonList = pokemonDao.fetchPokemonList().map { pokemonDb -> pokemonDb.map { it.toDomain() } }
 
-    suspend fun findPokemonById(id: Int) = pokemonDao.findPokemonById(id)?.toDomain()
+    fun findPokemonById(id: Int) = pokemonDao.findPokemonById(id).map { it?.toDomain() }
 
-    suspend fun savePokemon(pokemon: List<Pokemon>) = pokemonDao.savePokemon(pokemon.map { it.toEntity() })
+    suspend fun savePokemonList(pokemon: List<Pokemon>) = pokemonDao.savePokemon(pokemon.map { it.toEntity() })
 
     suspend fun updatePokemon(pokemon: Pokemon) = pokemonDao.updatePokemon(pokemon.toEntity())
 

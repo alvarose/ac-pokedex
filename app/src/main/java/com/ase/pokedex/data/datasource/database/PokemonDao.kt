@@ -5,15 +5,16 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface PokemonDao {
 
     @Query("SELECT * FROM pokemon")
-    suspend fun fetchPokemonList(): List<PokemonEntity>
+    fun fetchPokemonList(): Flow<List<PokemonEntity>>
 
     @Query("SELECT * FROM pokemon WHERE id = :id")
-    suspend fun findPokemonById(id: Int): PokemonEntity?
+    fun findPokemonById(id: Int): Flow<PokemonEntity?>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun savePokemon(pokemon: List<PokemonEntity>)

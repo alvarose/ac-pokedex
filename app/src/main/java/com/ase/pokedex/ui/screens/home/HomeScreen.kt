@@ -74,7 +74,7 @@ fun HomeScreen(
             modifier = Modifier.fillMaxSize(),
             state = homeState.lazyGridState
         ) {
-            items(state.pokemon, key = { it.id }) { pokemon ->
+            items(state.pokemonList, key = { it.id }) { pokemon ->
                 PokemonItem(pokemon) { onPokemonClick(pokemon) }
             }
         }

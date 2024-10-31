@@ -10,10 +10,10 @@ import com.ase.pokedex.data.model.formatPokemonName
 
 class PokemonRemoteDataSource {
 
-    suspend fun fetchPokemon(): List<Pokemon> =
+    suspend fun fetchPokemonList(): List<Pokemon> =
         ApiClient
             .instance
-            .fetchPokemon()
+            .fetchPokemonList()
             .results.map {
                 it.toDomain()
             }

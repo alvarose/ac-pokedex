@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.ase.pokedex.data.model.Pokemon
 import com.ase.pokedex.data.PokemonRepository
 import com.ase.pokedex.data.datasource.PokemonRemoteDataSource
+import com.ase.pokedex.ui.screens.home.HomeViewModel.UiState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -20,7 +21,9 @@ class DetailViewModel(
     init {
         viewModelScope.launch {
             _state.value = UiState(loading = true)
-            _state.value = UiState(loading = false, pokemon = repository.fetchPokemonById(id))
+            repository.findPokemonById(id).collect { pokemon ->
+                _state.value = UiState(loading = false, pokemon = pokemon)
+            }
         }
     }
 

@@ -6,7 +6,7 @@ import retrofit2.http.Path
 interface PokemonService {
 
     @GET("pokemon?limit=151")
-    suspend fun fetchPokemon(): PokeResponse<List<PokemonResource>>
+    suspend fun fetchPokemonList(): PokeResponse<List<PokemonResource>>
 
     @GET("pokemon/{id}")
     suspend fun fetchPokemonById(
