@@ -11,10 +11,14 @@ import com.ase.pokedex.PokeApp
 import com.ase.pokedex.data.PokemonRepository
 import com.ase.pokedex.data.datasource.PokemonLocalDataSource
 import com.ase.pokedex.data.datasource.PokemonRemoteDataSource
+import com.ase.pokedex.data.datasource.remote.ApiClient
 import com.ase.pokedex.ui.screens.detail.DetailScreen
 import com.ase.pokedex.ui.screens.detail.DetailViewModel
 import com.ase.pokedex.ui.screens.home.HomeScreen
 import com.ase.pokedex.ui.screens.home.HomeViewModel
+import com.ase.pokedex.usecases.FetchPokemonListUseCase
+import com.ase.pokedex.usecases.FindPokemonByIdUseCase
+import com.ase.pokedex.usecases.ToggleFavoriteUseCase
 
 @Composable
 fun Navigation() {
@@ -23,7 +27,7 @@ fun Navigation() {
     val app = LocalContext.current.applicationContext as PokeApp
 
     val pokemonRepository = PokemonRepository(
-        PokemonRemoteDataSource(),
+        PokemonRemoteDataSource(ApiClient.instance),
         PokemonLocalDataSource(app.db.pokemonDao())
     )
 
@@ -33,14 +37,12 @@ fun Navigation() {
     ) {
         composable<Home> {
             HomeScreen(
-                viewModel { HomeViewModel(pokemonRepository) }
+                viewModel { HomeViewModel(FetchPokemonListUseCase(pokemonRepository)) }
             ) { pokemon -> navController.navigate(PokemonDetail(pokemon.id)) }
         }
         composable<PokemonDetail> { backStackEntry ->
             val pokemonId = requireNotNull(backStackEntry.toRoute<PokemonDetail>().pokemonId)
-            DetailScreen(
-                viewModel { DetailViewModel(pokemonId, pokemonRepository) }
-            ) {
+            DetailScreen(viewModel { DetailViewModel(pokemonId, FindPokemonByIdUseCase(pokemonRepository), ToggleFavoriteUseCase(pokemonRepository)) }) {
                 navController.popBackStack()
             }
         }

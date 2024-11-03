@@ -1,4 +1,4 @@
-package com.ase.pokedex.data.model
+package com.ase.pokedex.domain.model
 
 import kotlinx.serialization.Serializable
 

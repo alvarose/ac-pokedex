@@ -2,10 +2,8 @@ package com.ase.pokedex.data.datasource.database
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import kotlinx.serialization.Serializable
 
-@Serializable
-@Entity(tableName = "pokemon")
+@Entity
 data class PokemonEntity(
     @PrimaryKey(autoGenerate = false)
     val id: Int,

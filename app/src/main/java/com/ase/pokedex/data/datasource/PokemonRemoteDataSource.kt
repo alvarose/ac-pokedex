@@ -1,26 +1,31 @@
 package com.ase.pokedex.data.datasource
 
-import com.ase.pokedex.data.datasource.remote.ApiClient
 import com.ase.pokedex.data.datasource.remote.PokeTypeResult
 import com.ase.pokedex.data.datasource.remote.PokemonResource
 import com.ase.pokedex.data.datasource.remote.PokemonResult
-import com.ase.pokedex.data.model.PokeType
-import com.ase.pokedex.data.model.Pokemon
-import com.ase.pokedex.data.model.formatPokemonName
+import com.ase.pokedex.data.datasource.remote.PokemonService
+import com.ase.pokedex.domain.model.PokeType
+import com.ase.pokedex.domain.model.Pokemon
+import com.ase.pokedex.domain.model.formatPokemonName
 
-class PokemonRemoteDataSource {
+interface RemoteDataSource {
+    suspend fun fetchPokemonList(): List<Pokemon>
+    suspend fun findPokemonById(id: Int): Pokemon
+}
 
-    suspend fun fetchPokemonList(): List<Pokemon> =
-        ApiClient
-            .instance
+class PokemonRemoteDataSource(
+    private val pokemonService: PokemonService,
+) : RemoteDataSource {
+
+    override suspend fun fetchPokemonList(): List<Pokemon> =
+        pokemonService
             .fetchPokemonList()
             .results.map {
                 it.toDomain()
             }
 
-    suspend fun findPokemonById(id: Int): Pokemon =
-        ApiClient
-            .instance
+    override suspend fun findPokemonById(id: Int): Pokemon =
+        pokemonService
             .fetchPokemonById(id)
             .toDomain()
 }

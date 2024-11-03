@@ -35,8 +35,7 @@ import coil.compose.AsyncImage
 import com.ase.pokedex.R
 import com.ase.pokedex.Screen
 import com.ase.pokedex.common.ex.getIcon
-import com.ase.pokedex.data.model.PokeType
-import com.ase.pokedex.ui.common.LoadingIndicator
+import com.ase.pokedex.domain.model.PokeType
 import com.ase.pokedex.ui.common.PokeTopAppBar
 import com.ase.pokedex.ui.theme.PokeBackgroundLight
 import com.ase.pokedex.ui.theme.PokeGray
@@ -48,104 +47,104 @@ fun DetailScreen(
     vm: DetailViewModel = viewModel(),
     onBack: () -> Unit = {},
 ) {
-    val detailState = rememberDetailState()
     val state by vm.state.collectAsState()
+    val detailState = rememberDetailState(state)
 
-    Screen(scrollBehavior = detailState.scrollBehavior, topAppBar = { scrollBehavior ->
-        PokeTopAppBar(
-            title = state.pokemon?.name ?: "", navigationIcon = {
-                IconButton(onClick = onBack) {
-                    Icon(
-                        imageVector = Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back"
-                    )
-                }
-            }, scrollBehavior = scrollBehavior
-        )
-    }) {
-        if (state.loading) {
-            LoadingIndicator()
+    Screen(
+        state = state,
+        scrollBehavior = detailState.scrollBehavior,
+        topAppBar = { scrollBehavior ->
+            PokeTopAppBar(
+                title = detailState.pokemon?.name ?: "", navigationIcon = {
+                    IconButton(onClick = onBack) {
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back"
+                        )
+                    }
+                }, scrollBehavior = scrollBehavior
+            )
         }
-
-        state.pokemon?.let { pokemon ->
-            Column(
+    ) { pokemon ->
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+        ) {
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(24.dp),
                 modifier = Modifier
                     .fillMaxWidth()
-            ) {
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(24.dp),
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(
-                            horizontal = 24.dp,
-                            vertical = 32.dp
-                        )
-                ) {
-                    AsyncImage(
-                        model = pokemon.image,
-                        contentDescription = pokemon.name,
-                        contentScale = ContentScale.FillHeight,
-                        modifier = Modifier
-                            .height(165.dp)
-                            .aspectRatio(1f)
-                            .clip(MaterialTheme.shapes.large)
-                            .background(PokeBackgroundLight)
-                            .padding(12.dp)
+                    .padding(
+                        horizontal = 24.dp,
+                        vertical = 32.dp
                     )
-                    Column(
-                        modifier = Modifier.weight(1f),
+            ) {
+                AsyncImage(
+                    model = pokemon.image,
+                    contentDescription = pokemon.name,
+                    contentScale = ContentScale.FillHeight,
+                    modifier = Modifier
+                        .height(165.dp)
+                        .aspectRatio(1f)
+                        .clip(MaterialTheme.shapes.large)
+                        .background(PokeBackgroundLight)
+                        .padding(12.dp)
+                )
+                Column(
+                    modifier = Modifier.weight(1f),
+                ) {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(2.dp),
+                        modifier = Modifier.fillMaxWidth()
                     ) {
-                        Row(
-                            verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.spacedBy(2.dp),
-                            modifier = Modifier.fillMaxWidth()
-                        ) {
-                            Icon(
-                                imageVector = getIcon(R.drawable.ic_pokeball),
-                                contentDescription = null,
-                                tint = PokeGrayLight,
-                                modifier = Modifier.size(12.dp)
-                            )
-                            Text(
-                                text = pokemon.id.toString().padStart(3, '0'),
-                                fontSize = 14.sp,
-                                fontWeight = FontWeight.SemiBold,
-                                lineHeight = 14.sp,
-                                color = PokeGrayLight,
-                            )
-                        }
-
-                        Text(
-                            text = pokemon.name,
-                            fontSize = 24.sp,
-                            fontWeight = FontWeight.SemiBold,
-                            lineHeight = 24.sp,
-                            color = PokeGray,
+                        Icon(
+                            imageVector = getIcon(R.drawable.ic_pokeball),
+                            contentDescription = null,
+                            tint = PokeGrayLight,
+                            modifier = Modifier.size(12.dp)
                         )
-                        Spacer(modifier = Modifier.height(3.dp))
-                        Row(
-                            horizontalArrangement = Arrangement.spacedBy(4.dp),
-                            modifier = Modifier.fillMaxWidth()
-                        ) {
-                            pokemon.types.forEach { type ->
-                                PokemonTypeItem(type)
-                            }
+                        Text(
+                            text = pokemon.id.toString().padStart(3, '0'),
+                            fontSize = 14.sp,
+                            fontWeight = FontWeight.SemiBold,
+                            lineHeight = 14.sp,
+                            color = PokeGrayLight,
+                        )
+                    }
+
+                    Text(
+                        text = pokemon.name,
+                        fontSize = 24.sp,
+                        fontWeight = FontWeight.SemiBold,
+                        lineHeight = 24.sp,
+                        color = PokeGray,
+                    )
+                    Spacer(modifier = Modifier.height(3.dp))
+                    Row(
+                        horizontalArrangement = Arrangement.spacedBy(4.dp),
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        pokemon.types.forEach { type ->
+                            PokemonTypeItem(type)
                         }
                     }
                 }
-                Column(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .weight(1f)
-                        .clip(MaterialTheme.shapes.large)
-                        .background(Color.White)
-                        .padding(16.dp)
-                ) {
-                    Text(text = "Favorite: ${pokemon.favorite}")
-                    Spacer(modifier = Modifier.weight(1f))
-                    Button(onClick = { vm.onFavoriteClicked() }, modifier = Modifier.fillMaxWidth()) {
-                        Text(text = "Add to Favorites")
-                    }
+            }
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .weight(1f)
+                    .clip(MaterialTheme.shapes.large)
+                    .background(Color.White)
+                    .padding(16.dp)
+            ) {
+                val text = if (pokemon.favorite) "Sí" else "No"
+                Text(text = "Favoritos? $text")
+                Spacer(modifier = Modifier.weight(1f))
+                Button(onClick = { vm.onFavoriteClicked() }, modifier = Modifier.fillMaxWidth()) {
+                    val text = if (pokemon.favorite) "Quitar de favoritos" else "Añadir a favoritos"
+                    Text(text = text)
                 }
             }
         }

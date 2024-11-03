@@ -40,8 +40,7 @@ import coil.request.ImageRequest
 import com.ase.pokedex.R
 import com.ase.pokedex.Screen
 import com.ase.pokedex.common.ex.getIcon
-import com.ase.pokedex.data.model.Pokemon
-import com.ase.pokedex.ui.common.LoadingIndicator
+import com.ase.pokedex.domain.model.Pokemon
 import com.ase.pokedex.ui.common.PokeTopAppBar
 import com.ase.pokedex.ui.theme.PokeBackgroundLight
 import com.ase.pokedex.ui.theme.PokeFavorite
@@ -58,6 +57,7 @@ fun HomeScreen(
     val state by vm.state.collectAsState()
 
     Screen(
+        state = state,
         scrollBehavior = homeState.scrollBehavior,
         topAppBar = { scrollBehavior ->
             PokeTopAppBar(
@@ -65,11 +65,7 @@ fun HomeScreen(
                 scrollBehavior = scrollBehavior
             )
         }
-    ) {
-        if (state.loading) {
-            LoadingIndicator()
-        }
-
+    ) { pokemonList ->
         LazyVerticalGrid(
             columns = GridCells.Fixed(3),
             contentPadding = PaddingValues(12.dp),
@@ -78,7 +74,7 @@ fun HomeScreen(
             modifier = Modifier.fillMaxSize(),
             state = homeState.lazyGridState
         ) {
-            items(state.pokemonList, key = { it.id }) { pokemon ->
+            items(pokemonList, key = { it.id }) { pokemon ->
                 PokemonItem(pokemon) { onPokemonClick(pokemon) }
             }
         }

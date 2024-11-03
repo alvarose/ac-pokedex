@@ -10,10 +10,10 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface PokemonDao {
 
-    @Query("SELECT * FROM pokemon")
+    @Query("SELECT * FROM PokemonEntity")
     fun fetchPokemonList(): Flow<List<PokemonEntity>>
 
-    @Query("SELECT * FROM pokemon WHERE id = :id")
+    @Query("SELECT * FROM PokemonEntity WHERE id = :id")
     fun findPokemonById(id: Int): Flow<PokemonEntity?>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -22,9 +22,9 @@ interface PokemonDao {
     @Update
     suspend fun updatePokemon(pokemon: PokemonEntity)
 
-    @Query("SELECT COUNT(*) FROM pokemon")
+    @Query("SELECT COUNT(*) FROM PokemonEntity")
     suspend fun countPokemon(): Int
 
-    @Query("DELETE FROM pokemon")
+    @Query("DELETE FROM PokemonEntity")
     suspend fun clearDatabase();
 }

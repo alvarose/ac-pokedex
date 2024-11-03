@@ -21,6 +21,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import com.ase.pokedex.ui.common.LoadingIndicator
 import com.ase.pokedex.ui.common.navigation.Navigation
 import com.ase.pokedex.ui.theme.PokeColor
 import com.ase.pokedex.ui.theme.PokemonTheme
@@ -40,12 +41,12 @@ class MainActivity : ComponentActivity() {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Screen(
+fun <T> Screen(
+    state: Result<T>,
     scrollBehavior: TopAppBarScrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(),
     topAppBar: @Composable (TopAppBarScrollBehavior) -> Unit,
-    content: @Composable (PaddingValues) -> Unit,
+    content: @Composable (T) -> Unit,
 ) {
-    Icons.Rounded.Home
     PokemonTheme {
         Scaffold(
             topBar = { topAppBar(scrollBehavior) },
@@ -59,7 +60,17 @@ fun Screen(
                     .fillMaxSize()
                     .padding(padding)
             ) {
-                content(padding)
+                when (state) {
+                    is Result.Loading -> {
+                        LoadingIndicator()
+                    }
+                    is Result.Success -> {
+                        content(state.data)
+                    }
+                    is Result.Error -> {
+                        // Handle error
+                    }
+                }
             }
         }
     }

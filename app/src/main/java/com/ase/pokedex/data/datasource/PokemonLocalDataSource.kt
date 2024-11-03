@@ -2,25 +2,34 @@ package com.ase.pokedex.data.datasource
 
 import com.ase.pokedex.data.datasource.database.PokemonDao
 import com.ase.pokedex.data.datasource.database.PokemonEntity
-import com.ase.pokedex.data.model.PokeType
-import com.ase.pokedex.data.model.Pokemon
-import com.ase.pokedex.data.model.formatPokemonName
+import com.ase.pokedex.domain.model.PokeType
+import com.ase.pokedex.domain.model.Pokemon
+import com.ase.pokedex.domain.model.formatPokemonName
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
-class PokemonLocalDataSource(private val pokemonDao: PokemonDao) {
+interface LocalDataInterface {
+    val pokemonList: Flow<List<Pokemon>>
+    fun findPokemonById(id: Int): Flow<Pokemon?>
+    suspend fun savePokemonList(pokemon: List<Pokemon>)
+    suspend fun updatePokemon(pokemon: Pokemon)
+    suspend fun isEmpty(): Boolean
+    suspend fun clearDatabase()
+}
 
-    val pokemonList = pokemonDao.fetchPokemonList().map { pokemonDb -> pokemonDb.map { it.toDomain() } }
+class PokemonLocalDataSource(private val pokemonDao: PokemonDao) : LocalDataInterface {
 
-    fun findPokemonById(id: Int): Flow<Pokemon?> = pokemonDao.findPokemonById(id).map { it?.toDomain() }
+    override val pokemonList = pokemonDao.fetchPokemonList().map { pokemonDb -> pokemonDb.map { it.toDomain() } }
 
-    suspend fun savePokemonList(pokemon: List<Pokemon>) = pokemonDao.savePokemon(pokemon.map { it.toEntity() })
+    override fun findPokemonById(id: Int): Flow<Pokemon?> = pokemonDao.findPokemonById(id).map { it?.toDomain() }
 
-    suspend fun updatePokemon(pokemon: Pokemon) = pokemonDao.updatePokemon(pokemon.toEntity())
+    override suspend fun savePokemonList(pokemon: List<Pokemon>) = pokemonDao.savePokemon(pokemon.map { it.toEntity() })
 
-    suspend fun isEmpty() = pokemonDao.countPokemon() == 0
+    override suspend fun updatePokemon(pokemon: Pokemon) = pokemonDao.updatePokemon(pokemon.toEntity())
 
-    suspend fun clearDatabase() = pokemonDao.clearDatabase()
+    override suspend fun isEmpty() = pokemonDao.countPokemon() == 0
+
+    override suspend fun clearDatabase() = pokemonDao.clearDatabase()
 }
 
 private fun Pokemon.toEntity() = PokemonEntity(
