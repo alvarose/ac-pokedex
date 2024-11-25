@@ -7,8 +7,8 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
+import com.ase.pokedex.domain.Pokemon
 import com.ase.pokedex.Result
-import com.ase.pokedex.domain.model.Pokemon
 
 class DetailState(
     private val state: Result<Pokemon>,

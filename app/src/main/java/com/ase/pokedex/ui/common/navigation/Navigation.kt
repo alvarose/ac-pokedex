@@ -42,7 +42,15 @@ fun Navigation() {
         }
         composable<PokemonDetail> { backStackEntry ->
             val pokemonId = requireNotNull(backStackEntry.toRoute<PokemonDetail>().pokemonId)
-            DetailScreen(viewModel { DetailViewModel(pokemonId, FindPokemonByIdUseCase(pokemonRepository), ToggleFavoriteUseCase(pokemonRepository)) }) {
+            DetailScreen(
+                viewModel {
+                    DetailViewModel(
+                        pokemonId,
+                        FindPokemonByIdUseCase(pokemonRepository),
+                        ToggleFavoriteUseCase(pokemonRepository)
+                    )
+                }
+            ) {
                 navController.popBackStack()
             }
         }

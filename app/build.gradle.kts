@@ -10,7 +10,7 @@ plugins {
 
 android {
     namespace = "com.ase.pokedex"
-    compileSdk = 34
+    compileSdk = 35
 
     val versionMajor = 1
     val versionMinor = 0
@@ -19,7 +19,7 @@ android {
     defaultConfig {
         applicationId = "com.ase.pokedex"
         minSdk = 24
-        targetSdk = 34
+        targetSdk = 35
         versionCode = versionMajor * 10000 + versionMinor * 100 + versionPatch
         versionName = "${versionMajor}.${versionMinor}.${versionPatch}"
 
@@ -54,7 +54,6 @@ android {
 }
 
 dependencies {
-
     // Coil
     implementation(libs.coil.compose)
 

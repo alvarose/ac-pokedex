@@ -1,7 +1,7 @@
 package com.ase.pokedex.usecases
 
 import com.ase.pokedex.data.PokemonRepository
-import com.ase.pokedex.domain.model.Pokemon
+import com.ase.pokedex.domain.Pokemon
 import kotlinx.coroutines.flow.Flow
 
 class FetchPokemonListUseCase(

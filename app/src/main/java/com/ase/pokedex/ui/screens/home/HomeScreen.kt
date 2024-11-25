@@ -37,10 +37,10 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
+import com.ase.pokedex.domain.Pokemon
 import com.ase.pokedex.R
 import com.ase.pokedex.Screen
 import com.ase.pokedex.common.ex.getIcon
-import com.ase.pokedex.domain.model.Pokemon
 import com.ase.pokedex.ui.common.PokeTopAppBar
 import com.ase.pokedex.ui.theme.PokeBackgroundLight
 import com.ase.pokedex.ui.theme.PokeFavorite

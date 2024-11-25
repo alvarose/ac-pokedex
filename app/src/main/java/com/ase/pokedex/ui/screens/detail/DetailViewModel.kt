@@ -2,8 +2,8 @@ package com.ase.pokedex.ui.screens.detail
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.ase.pokedex.domain.Pokemon
 import com.ase.pokedex.Result
-import com.ase.pokedex.domain.model.Pokemon
 import com.ase.pokedex.ifSuccess
 import com.ase.pokedex.stateAsResultIn
 import com.ase.pokedex.usecases.FindPokemonByIdUseCase

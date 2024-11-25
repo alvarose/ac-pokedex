@@ -1,8 +1,7 @@
-package com.ase.pokedex.domain.model
+package com.ase.pokedex.domain
 
-import kotlinx.serialization.Serializable
+import kotlin.collections.isNotEmpty
 
-@Serializable
 data class Pokemon(
     val id: Int,
     val name: String,
@@ -16,8 +15,4 @@ data class Pokemon(
         get() = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/$id.png"
 
     fun hasDataComplete() = types.isNotEmpty()
-}
-
-fun String.formatPokemonName(): String {
-    return this.replaceFirstChar(Char::titlecase).replace("-f", " ♀").replace("-m", " ♂")
 }
