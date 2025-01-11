@@ -2,40 +2,29 @@ package com.ase.pokedex.ui.screens.detail
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.ase.pokedex.data.model.Pokemon
-import com.ase.pokedex.data.api.PokemonRepository
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
+import com.ase.pokedex.domain.Pokemon
+import com.ase.pokedex.Result
+import com.ase.pokedex.ifSuccess
+import com.ase.pokedex.stateAsResultIn
+import com.ase.pokedex.usecases.FindPokemonByIdUseCase
+import com.ase.pokedex.usecases.ToggleFavoriteUseCase
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 class DetailViewModel(
-    private val id: Int,
+    id: Int,
+    private val findPokemonByIdUseCase: FindPokemonByIdUseCase,
+    private val toggleFavoriteUseCase: ToggleFavoriteUseCase,
 ) : ViewModel() {
 
-    private val repository = PokemonRepository()
+    val state: StateFlow<Result<Pokemon>> = findPokemonByIdUseCase(id)
+        .stateAsResultIn(viewModelScope)
 
-    private val _state = MutableStateFlow(UiState())
-    val state get() = _state.asStateFlow()
-
-    init {
-        viewModelScope.launch {
-            _state.value = UiState(loading = true)
-            _state.value = UiState(loading = false, pokemon = repository.fetchHeroById(id))
+    fun onFavoriteClicked() {
+        state.value.ifSuccess { pokemon ->
+            viewModelScope.launch {
+                toggleFavoriteUseCase(pokemon)
+            }
         }
-    }
-
-    data class UiState(
-        val loading: Boolean = false,
-        val pokemon: Pokemon? = null,
-        val message: String? = null,
-    )
-
-    fun showMessage(message: String) {
-        _state.update { it.copy(message = message) }
-    }
-
-    fun onMessageShown() {
-        _state.update { it.copy(message = null) }
     }
 }

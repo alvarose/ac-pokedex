@@ -2,8 +2,8 @@
 
 package com.ase.pokedex.ui.screens.home
 
-import androidx.compose.foundation.lazy.LazyListState
-import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.lazy.grid.LazyGridState
+import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.TopAppBarScrollBehavior
@@ -12,13 +12,13 @@ import androidx.compose.runtime.remember
 
 class HomeState(
     val scrollBehavior: TopAppBarScrollBehavior,
-    val lazyListState: LazyListState,
+    val lazyGridState: LazyGridState,
 )
 
 @Composable
 fun rememberHomeState(
     scrollBehavior: TopAppBarScrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(),
-    lazyListState: LazyListState = rememberLazyListState(),
+    lazyGridState: LazyGridState = rememberLazyGridState(),
 ): HomeState {
-    return remember(scrollBehavior, lazyListState) { HomeState(scrollBehavior, lazyListState) }
+    return remember(scrollBehavior, lazyGridState) { HomeState(scrollBehavior, lazyGridState) }
 }

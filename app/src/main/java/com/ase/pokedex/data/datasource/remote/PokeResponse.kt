@@ -1,4 +1,4 @@
-package com.ase.pokedex.data.api
+package com.ase.pokedex.data.datasource.remote
 
 import kotlinx.serialization.Serializable
 
@@ -17,7 +17,7 @@ data class PokemonResource(
 data class PokemonResult(
     val id: Int,
     val name: String,
-    val types: List<PokeTypeResource>
+    val types: List<PokeTypeResource>,
 )
 
 @Serializable

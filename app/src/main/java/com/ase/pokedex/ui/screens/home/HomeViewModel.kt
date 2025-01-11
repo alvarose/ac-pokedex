@@ -2,32 +2,34 @@ package com.ase.pokedex.ui.screens.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.ase.pokedex.data.model.Pokemon
-import com.ase.pokedex.data.api.PokemonRepository
+import com.ase.pokedex.Result
+import com.ase.pokedex.common.ex.log
+import com.ase.pokedex.domain.Pokemon
+import com.ase.pokedex.stateAsResultIn
+import com.ase.pokedex.usecases.FetchPokemonListUseCase
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.flatMapLatest
 
-class HomeViewModel : ViewModel() {
+@OptIn(ExperimentalCoroutinesApi::class)
+class HomeViewModel(
+    private val fetchPokemonUseCase: FetchPokemonListUseCase,
+) : ViewModel() {
 
-    private val repository = PokemonRepository()
+    private val uiReady = MutableStateFlow(false)
 
-    private val _state = MutableStateFlow(UiState())
-    val state get() = _state.asStateFlow()
+    val state: StateFlow<Result<List<Pokemon>>> = uiReady
+        .filter { it }
+        .flatMapLatest { fetchPokemonUseCase() }
+        .stateAsResultIn(viewModelScope)
 
     init {
         onUiReady()
     }
 
     fun onUiReady() {
-        viewModelScope.launch {
-            _state.value = UiState(loading = true)
-            _state.value = UiState(loading = false, pokemon = repository.fetchHeroes())
-        }
+        uiReady.value = true
     }
-
-    data class UiState(
-        val loading: Boolean = false,
-        val pokemon: List<Pokemon> = emptyList(),
-    )
 }

@@ -1,8 +1,7 @@
-package com.ase.pokedex.data.api
+package com.ase.pokedex.data.datasource.remote
 
 import com.ase.pokedex.BuildConfig
 import kotlinx.serialization.json.Json
-import okhttp3.Interceptor
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -15,7 +14,6 @@ object ApiClient {
     val loggingInterceptor = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
 
     val okHttpClient = OkHttpClient.Builder()
-        .addInterceptor { authInterceptor(it) }
         .addInterceptor(loggingInterceptor)
         .build()
 
@@ -30,13 +28,3 @@ object ApiClient {
         .build()
         .create<PokemonService>()
 }
-
-private fun authInterceptor(chain: Interceptor.Chain) = chain.proceed(
-
-    chain
-        .request()
-        .newBuilder()
-        .header("Accept", "application/json")
-        .header("Authorization", "Bearer ${BuildConfig.API_KEY}")
-        .build()
-)
