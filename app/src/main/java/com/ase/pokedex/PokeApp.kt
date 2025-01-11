@@ -2,7 +2,7 @@ package com.ase.pokedex
 
 import android.app.Application
 import androidx.room.Room
-import com.ase.pokedex.data.datasource.database.PokemonDatabase
+import com.ase.pokedex.framework.database.PokemonDatabase
 
 class PokeApp : Application() {
     lateinit var db: PokemonDatabase

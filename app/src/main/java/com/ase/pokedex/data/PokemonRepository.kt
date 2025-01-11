@@ -1,8 +1,8 @@
 package com.ase.pokedex.data
 
-import com.ase.pokedex.data.datasource.PokemonLocalDataSource
-import com.ase.pokedex.data.datasource.PokemonRemoteDataSource
 import com.ase.pokedex.domain.Pokemon
+import com.ase.pokedex.framework.PokemonLocalDataSource
+import com.ase.pokedex.framework.PokemonRemoteDataSource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.onEach

@@ -1,4 +1,4 @@
-package com.ase.pokedex.data.datasource.remote
+package com.ase.pokedex.framework.remote
 
 import kotlinx.serialization.Serializable
 

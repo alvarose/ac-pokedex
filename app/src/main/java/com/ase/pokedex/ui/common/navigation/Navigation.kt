@@ -9,9 +9,9 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import com.ase.pokedex.PokeApp
 import com.ase.pokedex.data.PokemonRepository
-import com.ase.pokedex.data.datasource.PokemonLocalDataSource
-import com.ase.pokedex.data.datasource.PokemonRemoteDataSource
-import com.ase.pokedex.data.datasource.remote.ApiClient
+import com.ase.pokedex.framework.PokemonLocalDataSource
+import com.ase.pokedex.framework.PokemonRemoteDataSource
+import com.ase.pokedex.framework.remote.ApiClient
 import com.ase.pokedex.ui.screens.detail.DetailScreen
 import com.ase.pokedex.ui.screens.detail.DetailViewModel
 import com.ase.pokedex.ui.screens.home.HomeScreen

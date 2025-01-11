@@ -1,5 +1,5 @@
-# Archetics Coders · Pokédex
+# Architect Coders · Pokédex
 
 ## Álvaro Serrano
 
-- Práctica 3: Capa de datos
+- Práctica 4: Clean Architecture

@@ -1,4 +1,4 @@
-package com.ase.pokedex.data.datasource.database
+package com.ase.pokedex.framework.database
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
