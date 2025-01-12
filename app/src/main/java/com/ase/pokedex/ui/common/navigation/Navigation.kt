@@ -8,7 +8,6 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import com.ase.pokedex.PokeApp
-import com.ase.pokedex.data.PokemonRepository
 import com.ase.pokedex.framework.PokemonLocalDataSource
 import com.ase.pokedex.framework.PokemonRemoteDataSource
 import com.ase.pokedex.framework.remote.ApiClient
@@ -16,9 +15,6 @@ import com.ase.pokedex.ui.screens.detail.DetailScreen
 import com.ase.pokedex.ui.screens.detail.DetailViewModel
 import com.ase.pokedex.ui.screens.home.HomeScreen
 import com.ase.pokedex.ui.screens.home.HomeViewModel
-import com.ase.pokedex.usecases.FetchPokemonListUseCase
-import com.ase.pokedex.usecases.FindPokemonByIdUseCase
-import com.ase.pokedex.usecases.ToggleFavoriteUseCase
 
 @Composable
 fun Navigation() {
@@ -26,7 +22,7 @@ fun Navigation() {
 
     val app = LocalContext.current.applicationContext as PokeApp
 
-    val pokemonRepository = PokemonRepository(
+    val pokemonRepository = com.ase.pokedex.data.PokemonRepository(
         PokemonRemoteDataSource(ApiClient.instance),
         PokemonLocalDataSource(app.db.pokemonDao())
     )
@@ -37,7 +33,7 @@ fun Navigation() {
     ) {
         composable<Home> {
             HomeScreen(
-                viewModel { HomeViewModel(FetchPokemonListUseCase(pokemonRepository)) }
+                viewModel { HomeViewModel(com.ase.pokedex.usecases.FetchPokemonListUseCase(pokemonRepository)) }
             ) { pokemon -> navController.navigate(PokemonDetail(pokemon.id)) }
         }
         composable<PokemonDetail> { backStackEntry ->
@@ -46,8 +42,8 @@ fun Navigation() {
                 viewModel {
                     DetailViewModel(
                         pokemonId,
-                        FindPokemonByIdUseCase(pokemonRepository),
-                        ToggleFavoriteUseCase(pokemonRepository)
+                        com.ase.pokedex.usecases.FindPokemonByIdUseCase(pokemonRepository),
+                        com.ase.pokedex.usecases.ToggleFavoriteUseCase(pokemonRepository)
                     )
                 }
             ) {

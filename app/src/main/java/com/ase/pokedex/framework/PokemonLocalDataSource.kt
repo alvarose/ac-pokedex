@@ -1,6 +1,5 @@
 package com.ase.pokedex.framework
 
-import com.ase.pokedex.data.datasource.LocalDataInterface
 import com.ase.pokedex.domain.PokeType
 import com.ase.pokedex.domain.Pokemon
 import com.ase.pokedex.framework.database.PokemonDao
@@ -8,7 +7,7 @@ import com.ase.pokedex.framework.database.PokemonEntity
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
-class PokemonLocalDataSource(private val pokemonDao: PokemonDao) : LocalDataInterface {
+class PokemonLocalDataSource(private val pokemonDao: PokemonDao) : com.ase.pokedex.data.datasource.LocalDataSource {
 
     override val pokemonList = pokemonDao.fetchPokemonList().map { pokemonDb -> pokemonDb.map { it.toDomain() } }
 
