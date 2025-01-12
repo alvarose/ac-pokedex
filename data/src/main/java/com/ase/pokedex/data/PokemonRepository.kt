@@ -1,16 +1,16 @@
 package com.ase.pokedex.data
 
+import com.ase.pokedex.data.datasource.LocalDataSource
+import com.ase.pokedex.data.datasource.RemoteDataSource
 import com.ase.pokedex.domain.Pokemon
-import com.ase.pokedex.framework.PokemonLocalDataSource
-import com.ase.pokedex.framework.PokemonRemoteDataSource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.onEach
 import kotlin.let
 
 class PokemonRepository(
-    private val remoteDataSource: PokemonRemoteDataSource,
-    private val localDataSource: PokemonLocalDataSource,
+    private val remoteDataSource: RemoteDataSource,
+    private val localDataSource: LocalDataSource,
 ) {
     val pokemonList: Flow<List<Pokemon>> = localDataSource.pokemonList
         .onEach { localData ->

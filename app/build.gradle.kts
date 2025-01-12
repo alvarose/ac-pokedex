@@ -54,6 +54,11 @@ android {
 }
 
 dependencies {
+    // Modules
+    implementation(project(":data"))
+    implementation(project(":domain"))
+    implementation(project(":usecases"))
+
     // Coil
     implementation(libs.coil.compose)
 

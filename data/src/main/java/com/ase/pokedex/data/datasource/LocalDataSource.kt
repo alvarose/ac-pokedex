@@ -3,7 +3,7 @@ package com.ase.pokedex.data.datasource
 import com.ase.pokedex.domain.Pokemon
 import kotlinx.coroutines.flow.Flow
 
-interface LocalDataInterface {
+interface LocalDataSource {
     val pokemonList: Flow<List<Pokemon>>
     fun findPokemonById(id: Int): Flow<Pokemon?>
     suspend fun savePokemonList(pokemon: List<Pokemon>)

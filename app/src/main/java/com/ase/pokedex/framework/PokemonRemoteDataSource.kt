@@ -1,6 +1,5 @@
 package com.ase.pokedex.framework
 
-import com.ase.pokedex.data.datasource.RemoteDataSource
 import com.ase.pokedex.domain.PokeType
 import com.ase.pokedex.domain.Pokemon
 import com.ase.pokedex.framework.remote.PokeTypeResult
@@ -11,7 +10,7 @@ import com.ase.pokedex.framework.remote.PokemonService
 
 class PokemonRemoteDataSource(
     private val pokemonService: PokemonService,
-) : RemoteDataSource {
+) : com.ase.pokedex.data.datasource.RemoteDataSource {
 
     override suspend fun fetchPokemonList(): List<Pokemon> =
         pokemonService
