@@ -5,9 +5,9 @@ plugins {
 }
 
 android {
-    namespace = "com.ase.pokedex.data"
+    namespace = "com.ase.pokedex.framework.pokemon"
 }
 
 dependencies {
-    implementation(libs.kotlinx.coroutines.core)
+    implementation(project(":domain:pokemon"))
 }

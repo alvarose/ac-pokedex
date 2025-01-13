@@ -19,7 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import com.ase.pokedex.ui.common.LoadingIndicator
-import com.ase.pokedex.ui.common.navigation.Navigation
+import com.ase.pokedex.ui.navigation.Navigation
 import com.ase.pokedex.ui.theme.PokeColor
 import com.ase.pokedex.ui.theme.PokemonTheme
 
