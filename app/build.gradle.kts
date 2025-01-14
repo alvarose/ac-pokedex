@@ -1,10 +1,10 @@
 import java.util.Properties
 
 plugins {
-    alias(libs.plugins.kotlin.serialization)
-    alias(libs.plugins.ksp)
     id("ase.android.application")
     id("ase.android.application.compose")
+    id("ase.android.room")
+    id("ase.jvm.retrofit")
 }
 
 android {
@@ -18,16 +18,13 @@ android {
         applicationId = "com.ase.pokedex"
         versionCode = versionMajor * 10000 + versionMinor * 100 + versionPatch
         versionName = "${versionMajor}.${versionMinor}.${versionPatch}"
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
         setProperty("archivesBaseName", "pokedex-v$versionName")
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-
-        val props = Properties()
-        props.load(project.rootProject.file("local.properties").readText().byteInputStream())
-
-        val apiUrl = "API_URL"
-        buildConfigField("String", apiUrl, props.getProperty(apiUrl, ""))
+        vectorDrawables {
+            useSupportLibrary = true
+        }
     }
 
     buildTypes {
@@ -37,7 +34,9 @@ android {
         }
     }
 
-
+    buildFeatures {
+        buildConfig = true
+    }
 }
 
 dependencies {
@@ -47,6 +46,9 @@ dependencies {
     implementation(project(":feature:home"))
     implementation(project(":feature:detail"))
     implementation(project(":feature:common"))
+
+    //
+    implementation(libs.kotlinx.serialization.json)
 
     // Coil
     implementation(libs.coil.compose)

@@ -1,4 +1,4 @@
-package com.ase.pokedex.ui.navigation
+package com.ase.pokedex.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
@@ -8,13 +8,17 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import com.ase.pokedex.PokeApp
-import com.ase.pokedex.framework.PokemonLocalDataSource
-import com.ase.pokedex.framework.PokemonRemoteDataSource
-import com.ase.pokedex.framework.remote.ApiClient
-import com.ase.pokedex.ui.screens.detail.DetailScreen
-import com.ase.pokedex.ui.screens.detail.DetailViewModel
-import com.ase.pokedex.ui.screens.home.HomeScreen
-import com.ase.pokedex.ui.screens.home.HomeViewModel
+import com.ase.pokedex.domain.pokemon.data.PokemonRepository
+import com.ase.pokedex.domain.pokemon.usecases.FetchPokemonListUseCase
+import com.ase.pokedex.domain.pokemon.usecases.FindPokemonByIdUseCase
+import com.ase.pokedex.domain.pokemon.usecases.ToggleFavoriteUseCase
+import com.ase.pokedex.framework.pokemon.remote.ApiClient
+import com.ase.pokedex.feature.detail.DetailScreen
+import com.ase.pokedex.feature.detail.DetailViewModel
+import com.ase.pokedex.feature.home.HomeScreen
+import com.ase.pokedex.feature.home.HomeViewModel
+import com.ase.pokedex.framework.pokemon.PokemonLocalDataSource
+import com.ase.pokedex.framework.pokemon.PokemonRemoteDataSource
 
 @Composable
 fun Navigation() {
@@ -22,7 +26,7 @@ fun Navigation() {
 
     val app = LocalContext.current.applicationContext as PokeApp
 
-    val pokemonRepository = com.ase.pokedex.data.PokemonRepository(
+    val pokemonRepository = PokemonRepository(
         PokemonRemoteDataSource(ApiClient.instance),
         PokemonLocalDataSource(app.db.pokemonDao())
     )
@@ -33,7 +37,7 @@ fun Navigation() {
     ) {
         composable<Home> {
             HomeScreen(
-                viewModel { HomeViewModel(com.ase.domain.pokemon.usecases.FetchPokemonListUseCase(pokemonRepository)) }
+                viewModel { HomeViewModel(FetchPokemonListUseCase(pokemonRepository)) }
             ) { pokemon -> navController.navigate(PokemonDetail(pokemon.id)) }
         }
         composable<PokemonDetail> { backStackEntry ->
@@ -42,8 +46,8 @@ fun Navigation() {
                 viewModel {
                     DetailViewModel(
                         pokemonId,
-                        com.ase.domain.pokemon.usecases.FindPokemonByIdUseCase(pokemonRepository),
-                        com.ase.domain.pokemon.usecases.ToggleFavoriteUseCase(pokemonRepository)
+                        FindPokemonByIdUseCase(pokemonRepository),
+                        ToggleFavoriteUseCase(pokemonRepository)
                     )
                 }
             ) {
