@@ -1,22 +1,13 @@
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
-
 plugins {
-    id("java-library")
-    alias(libs.plugins.kotlin.jvm)
+    id("ase.android.library")
+    id("ase.android.room")
+    id("ase.jvm.retrofit")
 }
 
-java {
-    sourceCompatibility = JavaVersion.VERSION_11
-    targetCompatibility = JavaVersion.VERSION_11
-}
-
-kotlin {
-    compilerOptions {
-        jvmTarget = JvmTarget.JVM_11
-    }
+android {
+    namespace = "com.ase.pokedex.data"
 }
 
 dependencies {
-    implementation(project(":domain"))
     implementation(libs.kotlinx.coroutines.core)
 }
