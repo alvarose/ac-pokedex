@@ -2,4 +2,4 @@
 
 ## Álvaro Serrano
 
-- Práctica 5: Inyección de dependencias
+- Práctica 4: Clean Architecture
