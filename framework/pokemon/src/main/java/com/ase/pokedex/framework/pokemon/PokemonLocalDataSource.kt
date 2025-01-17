@@ -1,14 +1,16 @@
 package com.ase.pokedex.framework.pokemon
 
-import com.ase.pokedex.domain.pokemon.models.Pokemon
-import com.ase.pokedex.domain.pokemon.models.PokeType
 import com.ase.pokedex.domain.pokemon.data.datasource.LocalDataSource
+import com.ase.pokedex.domain.pokemon.models.PokeType
+import com.ase.pokedex.domain.pokemon.models.Pokemon
 import com.ase.pokedex.framework.pokemon.database.PokemonDao
 import com.ase.pokedex.framework.pokemon.database.PokemonEntity
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import org.koin.core.annotation.Factory
 
-class PokemonLocalDataSource(private val pokemonDao: PokemonDao) : LocalDataSource {
+@Factory
+internal class PokemonLocalDataSource(private val pokemonDao: PokemonDao) : LocalDataSource {
 
     override val pokemonList = pokemonDao.fetchPokemonList().map { pokemonDb -> pokemonDb.map { it.toDomain() } }
 

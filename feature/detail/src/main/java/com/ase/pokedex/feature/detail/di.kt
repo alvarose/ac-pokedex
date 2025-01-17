@@ -1,8 +1,8 @@
 package com.ase.pokedex.feature.detail
 
-import org.koin.dsl.module
-import org.koin.androidx.viewmodel.dsl.viewModelOf
+import org.koin.core.annotation.ComponentScan
+import org.koin.core.annotation.Module
 
-val detailFeatureModule = module {
-    viewModelOf(::DetailViewModel)
-}
+@Module
+@ComponentScan
+class DetailFeatureModule

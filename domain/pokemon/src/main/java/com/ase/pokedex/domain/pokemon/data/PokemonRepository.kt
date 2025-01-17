@@ -6,8 +6,10 @@ import com.ase.pokedex.domain.pokemon.models.Pokemon
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.onEach
+import org.koin.core.annotation.Factory
 import kotlin.let
 
+@Factory
 class PokemonRepository(
     private val remoteDataSource: RemoteDataSource,
     private val localDataSource: LocalDataSource,

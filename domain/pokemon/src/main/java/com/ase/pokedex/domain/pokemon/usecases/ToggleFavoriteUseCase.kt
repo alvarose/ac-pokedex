@@ -2,7 +2,9 @@ package com.ase.pokedex.domain.pokemon.usecases
 
 import com.ase.pokedex.domain.pokemon.data.PokemonRepository
 import com.ase.pokedex.domain.pokemon.models.Pokemon
+import org.koin.core.annotation.Factory
 
+@Factory
 class ToggleFavoriteUseCase(
     private val repository: PokemonRepository,
 ) {

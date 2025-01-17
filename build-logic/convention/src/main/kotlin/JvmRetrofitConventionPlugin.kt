@@ -6,7 +6,7 @@ import org.gradle.kotlin.dsl.dependencies
 class JvmRetrofitConventionPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
-            pluginManager.apply {
+            with(pluginManager) {
                 apply("org.jetbrains.kotlin.plugin.serialization")
             }
 

@@ -1,16 +1,17 @@
 package com.ase.pokedex
 
 import android.app.Application
-import com.ase.pokedex.domain.pokemon.pokemonDomainModule
-import com.ase.pokedex.feature.detail.detailFeatureModule
-import com.ase.pokedex.feature.home.homeFeatureModule
+import com.ase.pokedex.domain.pokemon.PokemonDomainModule
+import com.ase.pokedex.feature.detail.DetailFeatureModule
+import com.ase.pokedex.feature.home.HomeFeatureModule
+import com.ase.pokedex.framework.pokemon.PokemonFrameworkModule
 import com.ase.pokedex.framework.pokemon.dataSourceFrameworkModule
-import com.ase.pokedex.framework.pokemon.pokemonFrameworkModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.GlobalContext.startKoin
 import org.koin.core.logger.Level
 import org.koin.dsl.module
+import org.koin.ksp.generated.module
 
 class PokeApp : Application() {
     override fun onCreate() {
@@ -20,20 +21,12 @@ class PokeApp : Application() {
             androidLogger(Level.DEBUG)
             androidContext(this@PokeApp)
             modules(
-                appModule,
-                homeFeatureModule,
-                detailFeatureModule,
+                HomeFeatureModule().module,
+                DetailFeatureModule().module,
                 dataSourceFrameworkModule,
-                pokemonFrameworkModule,
-                pokemonDomainModule,
-                pokemonFrameworkModule,
+                PokemonFrameworkModule().module,
+                PokemonDomainModule().module,
             )
         }
     }
-}
-
-val appModule = module {
-//    single {
-//        named("apiUrl") { BuildConfig.API_URL }
-//    }
 }

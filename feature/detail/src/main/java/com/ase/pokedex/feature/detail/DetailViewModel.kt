@@ -10,7 +10,9 @@ import com.ase.pokedex.ifSuccess
 import com.ase.pokedex.stateAsResultIn
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import org.koin.android.annotation.KoinViewModel
 
+@KoinViewModel
 class DetailViewModel(
     id: Int,
     private val findPokemonByIdUseCase: FindPokemonByIdUseCase,

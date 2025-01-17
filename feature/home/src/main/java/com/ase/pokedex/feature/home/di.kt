@@ -1,8 +1,8 @@
 package com.ase.pokedex.feature.home
 
-import org.koin.androidx.viewmodel.dsl.viewModelOf
-import org.koin.dsl.module
+import org.koin.core.annotation.ComponentScan
+import org.koin.core.annotation.Module
 
-val homeFeatureModule = module {
-    viewModelOf(::HomeViewModel)
-}
+@Module
+@ComponentScan
+class HomeFeatureModule
