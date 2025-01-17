@@ -4,6 +4,7 @@ plugins {
     id("ase.android.library")
     id("ase.android.room")
     id("ase.jvm.retrofit")
+    id("ase.di.library")
 }
 
 android {
