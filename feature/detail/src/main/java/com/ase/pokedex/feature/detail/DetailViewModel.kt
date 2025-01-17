@@ -8,13 +8,15 @@ import com.ase.pokedex.domain.pokemon.usecases.FindPokemonByIdUseCase
 import com.ase.pokedex.domain.pokemon.usecases.ToggleFavoriteUseCase
 import com.ase.pokedex.ifSuccess
 import com.ase.pokedex.stateAsResultIn
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import org.koin.android.annotation.KoinViewModel
+import javax.inject.Inject
+import javax.inject.Named
 
-@KoinViewModel
-class DetailViewModel(
-    id: Int,
+@HiltViewModel
+class DetailViewModel @Inject constructor(
+    @Named("pokemonId") val id: Int,
     private val findPokemonByIdUseCase: FindPokemonByIdUseCase,
     private val toggleFavoriteUseCase: ToggleFavoriteUseCase,
 ) : ViewModel() {

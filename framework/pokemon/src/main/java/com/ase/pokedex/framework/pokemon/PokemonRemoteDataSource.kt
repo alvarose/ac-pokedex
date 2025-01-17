@@ -7,10 +7,9 @@ import com.ase.pokedex.framework.pokemon.remote.PokeTypeResult
 import com.ase.pokedex.framework.pokemon.remote.PokemonResource
 import com.ase.pokedex.framework.pokemon.remote.PokemonResult
 import com.ase.pokedex.framework.pokemon.remote.PokemonService
-import org.koin.core.annotation.Factory
+import javax.inject.Inject
 
-@Factory
-internal class PokemonRemoteDataSource(
+internal class PokemonRemoteDataSource @Inject constructor(
     private val pokemonService: PokemonService,
 ) : RemoteDataSource {
 

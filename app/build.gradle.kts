@@ -47,9 +47,6 @@ dependencies {
     implementation(project(":feature:detail"))
     implementation(project(":feature:common"))
 
-    //
-    implementation(libs.kotlinx.serialization.json)
-
     // Coil
     implementation(libs.coil.compose)
 

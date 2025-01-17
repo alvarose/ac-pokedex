@@ -34,6 +34,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.ase.pokedex.domain.pokemon.models.Pokemon
@@ -45,12 +46,11 @@ import com.ase.pokedex.ui.theme.PokeBackgroundLight
 import com.ase.pokedex.ui.theme.PokeFavorite
 import com.ase.pokedex.ui.theme.PokeGray
 import com.ase.pokedex.ui.theme.PokeGrayLight
-import org.koin.androidx.compose.koinViewModel
 
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
 fun HomeScreen(
-    vm: HomeViewModel = koinViewModel(),
+    vm: HomeViewModel = hiltViewModel(),
     onPokemonClick: (Pokemon) -> Unit,
 ) {
     val homeState = rememberHomeState()
