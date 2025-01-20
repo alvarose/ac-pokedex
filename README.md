@@ -2,7 +2,6 @@
 
 ## Álvaro Serrano
 
-- Práctica 5: Inyección de Dependencias
 - Práctica 1: Primera App
 - Práctica 2: Capa de UI
 - Práctica 3: Capa de datos
