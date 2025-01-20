@@ -41,5 +41,13 @@ gradlePlugin {
             id = "ase.jvm.retrofit"
             implementationClass = "JvmRetrofitConventionPlugin"
         }
+        register("diLibrary") {
+            id = "ase.di.library"
+            implementationClass = "DiLibraryConventionPlugin"
+        }
+        register("diCOmpose") {
+            id = "ase.di.library.compose"
+            implementationClass = "DiLibraryComposeConventionPlugin"
+        }
     }
 }

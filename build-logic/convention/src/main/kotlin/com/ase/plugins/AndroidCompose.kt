@@ -7,7 +7,10 @@ import org.gradle.kotlin.dsl.dependencies
 internal fun Project.configureAndroidCompose(
     commonExtension: CommonExtension<*, *, *, *, *, *>,
 ) {
-    pluginManager.apply("org.jetbrains.kotlin.plugin.compose")
+    with(pluginManager) {
+        apply("org.jetbrains.kotlin.plugin.compose")
+        apply("org.jetbrains.kotlin.plugin.serialization")
+    }
 
     commonExtension.apply {
         buildFeatures {
@@ -16,6 +19,7 @@ internal fun Project.configureAndroidCompose(
     }
 
     dependencies {
+        add("implementation", libs.findLibrary("androidx.navigation.compose").get())
         val composeBom = libs.findLibrary("androidx.compose.bom").get()
         add("implementation", platform(composeBom))
         add("implementation", libs.findLibrary("androidx.ui").get())
@@ -25,5 +29,4 @@ internal fun Project.configureAndroidCompose(
         add("implementation", libs.findLibrary("coil.compose").get())
         add("debugImplementation", libs.findLibrary("androidx.ui.tooling").get())
     }
-
 }

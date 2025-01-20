@@ -30,14 +30,14 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import com.ase.pokedex.domain.pokemon.models.PokeType
 import com.ase.pokedex.domain.pokemon.models.Pokemon
 import com.ase.pokedex.ex.getIcon
 import com.ase.pokedex.ui.common.PokeTopAppBar
-import com.ase.pokedex.ui.common.Screen
 import com.ase.pokedex.ui.common.R
+import com.ase.pokedex.ui.common.Screen
 import com.ase.pokedex.ui.theme.PokeBackgroundLight
 import com.ase.pokedex.ui.theme.PokeGray
 import com.ase.pokedex.ui.theme.PokeGrayLight
@@ -45,7 +45,7 @@ import com.ase.pokedex.ui.theme.PokeGrayLight
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
 fun DetailScreen(
-    vm: DetailViewModel = viewModel(),
+    vm: DetailViewModel = hiltViewModel(),
     onBack: () -> Unit = {},
 ) {
     val state by vm.state.collectAsState()

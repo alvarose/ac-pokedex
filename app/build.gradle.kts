@@ -1,10 +1,7 @@
-import java.util.Properties
-
 plugins {
     id("ase.android.application")
     id("ase.android.application.compose")
-    id("ase.android.room")
-    id("ase.jvm.retrofit")
+    id("ase.di.library.compose")
 }
 
 android {
@@ -18,9 +15,10 @@ android {
         applicationId = "com.ase.pokedex"
         versionCode = versionMajor * 10000 + versionMinor * 100 + versionPatch
         versionName = "${versionMajor}.${versionMinor}.${versionPatch}"
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
         setProperty("archivesBaseName", "pokedex-v$versionName")
+
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
         vectorDrawables {
             useSupportLibrary = true
@@ -47,21 +45,13 @@ dependencies {
     implementation(project(":feature:detail"))
     implementation(project(":feature:common"))
 
-    //
-    implementation(libs.kotlinx.serialization.json)
-
     // Coil
     implementation(libs.coil.compose)
-
-    // Navigation
-    implementation(libs.androidx.navigation.compose)
 
     // Google
     implementation(libs.google.services.location)
 
     // Core
-    implementation(libs.androidx.activity.compose)
-    implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)

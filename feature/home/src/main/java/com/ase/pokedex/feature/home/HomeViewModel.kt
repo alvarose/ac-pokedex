@@ -6,14 +6,17 @@ import com.ase.pokedex.Result
 import com.ase.pokedex.domain.pokemon.models.Pokemon
 import com.ase.pokedex.domain.pokemon.usecases.FetchPokemonListUseCase
 import com.ase.pokedex.stateAsResultIn
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.flatMapLatest
+import javax.inject.Inject
 
 @OptIn(ExperimentalCoroutinesApi::class)
-class HomeViewModel(
+@HiltViewModel
+class HomeViewModel @Inject constructor(
     private val fetchPokemonUseCase: FetchPokemonListUseCase,
 ) : ViewModel() {
 

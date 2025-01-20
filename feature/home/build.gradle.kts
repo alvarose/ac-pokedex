@@ -1,5 +1,6 @@
 plugins {
     id("ase.android.feature")
+    id("ase.di.library.compose")
 }
 
 android {

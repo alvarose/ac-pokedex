@@ -1,5 +1,6 @@
 plugins {
     id("ase.android.library.compose")
+
 }
 
 android {
@@ -8,5 +9,6 @@ android {
 
 dependencies {
     implementation(libs.androidx.activity.compose)
+    implementation(libs.kotlinx.serialization.json)
     implementation(libs.lottie)
 }

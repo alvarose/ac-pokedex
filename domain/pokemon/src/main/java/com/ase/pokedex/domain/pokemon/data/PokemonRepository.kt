@@ -6,9 +6,10 @@ import com.ase.pokedex.domain.pokemon.models.Pokemon
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.onEach
+import javax.inject.Inject
 import kotlin.let
 
-class PokemonRepository(
+class PokemonRepository @Inject constructor(
     private val remoteDataSource: RemoteDataSource,
     private val localDataSource: LocalDataSource,
 ) {
