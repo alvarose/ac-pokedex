@@ -1,4 +1,4 @@
-package com.ase.pokedex.navigation
+package com.ase.pokedex.ui.navigation
 
 import kotlinx.serialization.Serializable
 

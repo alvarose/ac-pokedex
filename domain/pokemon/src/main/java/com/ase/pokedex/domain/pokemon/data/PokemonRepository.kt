@@ -7,7 +7,6 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
-import javax.inject.Singleton
 import kotlin.let
 
 class PokemonRepository @Inject constructor(

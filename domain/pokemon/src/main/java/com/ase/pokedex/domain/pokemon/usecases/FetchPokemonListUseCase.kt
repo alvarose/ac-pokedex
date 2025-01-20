@@ -5,7 +5,6 @@ import com.ase.pokedex.domain.pokemon.models.Pokemon
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-
 class FetchPokemonListUseCase @Inject constructor(
     private val repository: PokemonRepository,
 ) {

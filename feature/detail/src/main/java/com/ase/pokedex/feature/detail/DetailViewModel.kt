@@ -12,16 +12,15 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import javax.inject.Named
 
 @HiltViewModel
 class DetailViewModel @Inject constructor(
-    @Named("pokemonId") val id: Int,
+    @PokemonId private val pokemonId: Int,
     private val findPokemonByIdUseCase: FindPokemonByIdUseCase,
     private val toggleFavoriteUseCase: ToggleFavoriteUseCase,
 ) : ViewModel() {
 
-    val state: StateFlow<Result<Pokemon>> = findPokemonByIdUseCase(id)
+    val state: StateFlow<Result<Pokemon>> = findPokemonByIdUseCase(pokemonId)
         .stateAsResultIn(viewModelScope)
 
     fun onFavoriteClicked() {

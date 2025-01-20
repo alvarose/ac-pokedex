@@ -1,4 +1,4 @@
-package com.ase.pokedex.navigation
+package com.ase.pokedex
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
@@ -7,6 +7,8 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import com.ase.pokedex.feature.detail.DetailScreen
 import com.ase.pokedex.feature.home.HomeScreen
+import com.ase.pokedex.ui.navigation.Home
+import com.ase.pokedex.ui.navigation.PokemonDetail
 
 @Composable
 fun Navigation() {
@@ -19,7 +21,6 @@ fun Navigation() {
             HomeScreen { pokemon -> navController.navigate(PokemonDetail(pokemon.id)) }
         }
         composable<PokemonDetail> { backStackEntry ->
-            val pokemonId = requireNotNull(backStackEntry.toRoute<PokemonDetail>().pokemonId)
             DetailScreen {
                 navController.popBackStack()
             }

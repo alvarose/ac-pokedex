@@ -1,8 +1,6 @@
 plugins {
     id("ase.android.application")
     id("ase.android.application.compose")
-    id("ase.android.room")
-    id("ase.jvm.retrofit")
     id("ase.di.library.compose")
 }
 
@@ -49,9 +47,6 @@ dependencies {
 
     // Coil
     implementation(libs.coil.compose)
-
-    // Navigation
-    implementation(libs.androidx.navigation.compose)
 
     // Google
     implementation(libs.google.services.location)
