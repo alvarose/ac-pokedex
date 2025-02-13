@@ -56,13 +56,15 @@ fun DetailScreen(
         scrollBehavior = detailState.scrollBehavior,
         topAppBar = { scrollBehavior ->
             PokeTopAppBar(
-                title = detailState.pokemon?.name ?: "", navigationIcon = {
+                title = detailState.pokemon?.name ?: "",
+                navigationIcon = {
                     IconButton(onClick = onBack) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back"
                         )
                     }
-                }, scrollBehavior = scrollBehavior
+                },
+                scrollBehavior = scrollBehavior
             )
         }
     ) { pokemon ->

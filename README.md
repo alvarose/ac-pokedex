@@ -2,4 +2,4 @@
 
 ## Álvaro Serrano
 
-- Práctica 5: Inyección de Dependencias
+- Práctica 6: Testing
