@@ -1,4 +1,4 @@
-package com.ase.pokedex.domain.pokemon
+package com.ase.pokedex.test
 
 import com.ase.pokedex.domain.pokemon.models.PokeType
 import com.ase.pokedex.domain.pokemon.models.Pokemon

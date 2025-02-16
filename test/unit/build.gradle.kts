@@ -4,4 +4,6 @@ plugins {
 
 dependencies {
     implementation(project(":domain:pokemon"))
+    implementation(libs.junit)
+    implementation(libs.kotlinx.coroutines.test)
 }

@@ -1,6 +1,6 @@
 package com.ase.pokedex.domain.pokemon.usecases
 
-import com.ase.pokedex.domain.pokemon.samplePokemon
+import com.ase.pokedex.test.samplePokemon
 import kotlinx.coroutines.flow.flowOf
 import org.junit.Assert.assertEquals
 import org.junit.Test
