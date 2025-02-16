@@ -3,7 +3,7 @@ package com.ase.pokedex.feature.home
 import app.cash.turbine.test
 import com.ase.pokedex.Result
 import com.ase.pokedex.domain.pokemon.usecases.FetchPokemonListUseCase
-import com.ase.pokedex.test.rules.CoroutinesTestRules
+import com.ase.pokedex.test.rules.CoroutinesTestRule
 import com.ase.pokedex.test.samplePokemonList
 import junit.framework.TestCase.assertEquals
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -26,7 +26,7 @@ import org.mockito.kotlin.whenever
 class HomeViewModelTest {
 
     @get:Rule
-    val coroutinesTestRules = CoroutinesTestRules()
+    val coroutinesTestRule = CoroutinesTestRule()
 
     @Mock
     lateinit var fetchPokemonListUseCase: FetchPokemonListUseCase
