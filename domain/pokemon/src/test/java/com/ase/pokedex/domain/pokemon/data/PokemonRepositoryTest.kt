@@ -3,8 +3,8 @@ package com.ase.pokedex.domain.pokemon.data
 import com.ase.pokedex.domain.pokemon.data.datasource.LocalDataSource
 import com.ase.pokedex.domain.pokemon.data.datasource.RemoteDataSource
 import com.ase.pokedex.domain.pokemon.models.Pokemon
-import com.ase.pokedex.domain.pokemon.usecases.samplePokemon
-import com.ase.pokedex.domain.pokemon.usecases.samplePokemonList
+import com.ase.pokedex.domain.pokemon.samplePokemon
+import com.ase.pokedex.domain.pokemon.samplePokemonList
 import junit.framework.TestCase.assertEquals
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flowOf

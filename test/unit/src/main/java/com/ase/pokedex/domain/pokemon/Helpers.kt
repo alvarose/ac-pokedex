@@ -1,4 +1,4 @@
-package com.ase.pokedex.domain.pokemon.usecases
+package com.ase.pokedex.domain.pokemon
 
 import com.ase.pokedex.domain.pokemon.models.PokeType
 import com.ase.pokedex.domain.pokemon.models.Pokemon

@@ -1,6 +1,7 @@
 package com.ase.pokedex.domain.pokemon.usecases
 
 import com.ase.pokedex.domain.pokemon.data.PokemonRepository
+import com.ase.pokedex.domain.pokemon.samplePokemon
 import kotlinx.coroutines.runBlocking
 import org.junit.Test
 import org.mockito.kotlin.mock
