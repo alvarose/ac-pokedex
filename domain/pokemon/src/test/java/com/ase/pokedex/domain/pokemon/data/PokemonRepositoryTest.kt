@@ -40,29 +40,29 @@ class PokemonRepositoryTest {
     @Test
     fun `Pokemon list load from local data source`() = runBlocking {
         // Given
-        val localPokemonList = samplePokemonList(1, 2, 3)
-        whenever(localDataSource.pokemonList).thenReturn(flowOf(localPokemonList))
+        val localData = samplePokemonList(1, 2, 3)
+        whenever(localDataSource.pokemonList).thenReturn(flowOf(localData))
 
         // When
         val result = repository.pokemonList
 
         // Then
-        assertEquals(localPokemonList, result.first())
+        assertEquals(localData, result.first())
     }
 
     @Test
     fun `Pokemon list load from remote data source when local is empty`() = runBlocking {
         // Given
-        val localPokemonList = emptyList<Pokemon>()
-        val remotePokemonList = samplePokemonList(1, 2, 3)
-        whenever(localDataSource.pokemonList).thenReturn(flowOf(localPokemonList))
-        whenever(remoteDataSource.fetchPokemonList()).thenReturn(remotePokemonList)
+        val localData = emptyList<Pokemon>()
+        val remoteData = samplePokemonList(1, 2, 3)
+        whenever(localDataSource.pokemonList).thenReturn(flowOf(localData))
+        whenever(remoteDataSource.fetchPokemonList()).thenReturn(remoteData)
 
         // When
         repository.pokemonList.first()
 
         // Then
-        verify(localDataSource).savePokemonList(remotePokemonList)
+        verify(localDataSource).savePokemonList(remoteData)
     }
 
     @Test
