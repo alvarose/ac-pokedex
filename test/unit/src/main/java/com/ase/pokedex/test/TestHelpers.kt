@@ -7,7 +7,7 @@ import kotlin.Int
 fun samplePokemon(id: Int): Pokemon = Pokemon(
     id = id,
     name = "Pokemon $id",
-    types = List((1..2).random()) { PokeType.entries.random() },
+    types = listOf(PokeType.NORMAL),
     favorite = false
 )
 
