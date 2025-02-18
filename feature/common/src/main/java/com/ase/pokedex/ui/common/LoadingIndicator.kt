@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
@@ -15,9 +16,11 @@ import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.ase.pokedex.ui.theme.PokeBackground
 
+const val LOADING_INDICATOR_TAG = "LoadingIndicator"
+
 @Composable
 fun LoadingIndicator(
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier.testTag(LOADING_INDICATOR_TAG),
 ) {
     val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.pokeball))
 

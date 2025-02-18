@@ -7,12 +7,8 @@ data class Pokemon(
     val name: String,
     val types: List<PokeType> = emptyList<PokeType>(),
     val favorite: Boolean,
+    val avatar: String = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/$id.png",
+    val image: String = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/$id.png",
 ) {
-    val avatar: String
-        get() = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/$id.png"
-
-    val image: String
-        get() = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/$id.png"
-
     fun hasDataComplete() = types.isNotEmpty()
 }

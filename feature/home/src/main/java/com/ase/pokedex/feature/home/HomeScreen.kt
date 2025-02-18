@@ -31,12 +31,14 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
+import com.ase.pokedex.Result
 import com.ase.pokedex.domain.pokemon.models.Pokemon
 import com.ase.pokedex.ex.getIcon
 import com.ase.pokedex.ui.common.PokeTopAppBar
@@ -50,15 +52,25 @@ import com.ase.pokedex.ui.theme.PokeGrayLight
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
 fun HomeScreen(
-    vm: HomeViewModel = hiltViewModel(),
+    viewModel: HomeViewModel = hiltViewModel(),
     onPokemonClick: (Pokemon) -> Unit,
 ) {
-    val homeState = rememberHomeState()
-    val state by vm.state.collectAsState()
+    val state by viewModel.state.collectAsState()
+
+    HomeContent(state) { onPokemonClick(it) }
+}
+
+@Composable
+@OptIn(ExperimentalMaterial3Api::class)
+fun HomeContent(
+    state: Result<List<Pokemon>>,
+    onPokemonClick: (Pokemon) -> Unit,
+) {
+    val viewState = rememberHomeState()
 
     Screen(
         state = state,
-        scrollBehavior = homeState.scrollBehavior,
+        scrollBehavior = viewState.scrollBehavior,
         topAppBar = { scrollBehavior ->
             PokeTopAppBar(
                 title = "Pokédex",
@@ -68,11 +80,11 @@ fun HomeScreen(
     ) { pokemonList ->
         LazyVerticalGrid(
             columns = GridCells.Fixed(3),
-            contentPadding = PaddingValues(12.dp),
+            contentPadding = PaddingValues(16.dp),
             horizontalArrangement = Arrangement.spacedBy(8.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp),
             modifier = Modifier.fillMaxSize(),
-            state = homeState.lazyGridState
+            state = viewState.lazyGridState
         ) {
             items(pokemonList, key = { it.id }) { pokemon ->
                 PokemonItem(pokemon) { onPokemonClick(pokemon) }
@@ -122,13 +134,14 @@ fun PokemonItem(pokemon: Pokemon, onPokemonClick: () -> Unit) {
                 ) {
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(2.dp),
                         modifier = Modifier.fillMaxWidth()
                     ) {
                         Icon(
                             imageVector = getIcon(R.drawable.ic_pokeball),
                             contentDescription = null,
                             tint = PokeGrayLight,
-                            modifier = Modifier.size(10.dp)
+                            modifier = Modifier.size(12.dp)
                         )
                         Text(
                             text = pokemon.id.toString().padStart(3, '0'),
