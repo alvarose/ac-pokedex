@@ -11,6 +11,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
@@ -29,14 +30,25 @@ internal object PokemonFrameworkModule {
 
     @Provides
     @Singleton
-    fun provideDatabase(app: Application) = Room.databaseBuilder(app, PokemonDatabase::class.java, "pokemon_db").build()
-
-    @Provides
-    @Singleton
     fun providePokemonDao(database: PokemonDatabase) = database.pokemonDao()
 
     @Provides
     @Singleton
-    fun provideApiClient() = ApiClient.instance
+    fun provideApiClient(@Named("apiUrl") apiUrl: String) = ApiClient(apiUrl).instance
+
+}
+
+@Module
+@InstallIn(SingletonComponent::class)
+object PokemonDatabaseModule {
+
+    @Provides
+    @Singleton
+    fun provideDatabase(app: Application) = Room.databaseBuilder(app, PokemonDatabase::class.java, "pokemon_db").build()
+
+    @Provides
+    @Singleton
+    @Named("apiUrl")
+    fun provideApiUrl(): String = BuildConfig.API_URL
 
 }

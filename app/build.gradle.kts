@@ -18,7 +18,7 @@ android {
 
         setProperty("archivesBaseName", "pokedex-v$versionName")
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "com.ase.pokedex.di.HiltTestRunner"
 
         vectorDrawables {
             useSupportLibrary = true
@@ -56,4 +56,10 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+
+    androidTestImplementation(libs.hilt.android.testing)
+    kspAndroidTest(libs.hilt.compiler)
+    androidTestImplementation(libs.room.ktx)
+    kspAndroidTest(libs.room.compiler)
+    androidTestImplementation(libs.okhttp.mockwebserver)
 }
