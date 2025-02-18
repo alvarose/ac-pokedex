@@ -37,17 +37,9 @@ fun <T> Screen(
                     .padding(padding)
             ) {
                 when (state) {
-                    is Result.Loading -> {
-                        LoadingIndicator()
-                    }
-
-                    is Result.Success -> {
-                        content(state.data)
-                    }
-
-                    is Result.Error -> {
-                        // Handle error
-                    }
+                    is Result.Loading -> LoadingIndicator()
+                    is Result.Success -> content(state.data)
+                    is Result.Error -> ErrorIndicator()
                 }
             }
         }

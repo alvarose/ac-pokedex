@@ -13,13 +13,14 @@ class PokemonRepository @Inject constructor(
     private val remoteDataSource: RemoteDataSource,
     private val localDataSource: LocalDataSource,
 ) {
-    val pokemonList: Flow<List<Pokemon>> = localDataSource.pokemonList
-        .onEach { localData ->
-            if (localData.isEmpty()) {
-                val remoteData = remoteDataSource.fetchPokemonList()
-                localDataSource.savePokemonList(remoteData)
+    val pokemonList: Flow<List<Pokemon>>
+        get() = localDataSource.pokemonList
+            .onEach { localData ->
+                if (localData.isEmpty()) {
+                    val remoteData = remoteDataSource.fetchPokemonList()
+                    localDataSource.savePokemonList(remoteData)
+                }
             }
-        }
 
     fun findPokemonById(id: Int): Flow<Pokemon> = localDataSource.findPokemonById(id)
         .onEach { localPokemon ->
