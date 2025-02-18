@@ -1,27 +1,17 @@
-package home
+package com.ase.pokedex.feature.home
 
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
-import androidx.compose.ui.test.onRoot
 import androidx.compose.ui.test.performClick
-import androidx.compose.ui.test.printToLog
-import androidx.test.espresso.matcher.ViewMatchers.assertThat
-import coil.Coil
-import coil.ImageLoader
-import coil.request.ErrorResult
-import coil.request.ImageRequest
-import coil.request.SuccessResult
 import com.ase.pokedex.Result
-import com.ase.pokedex.feature.home.HomeContent
 import com.ase.pokedex.test.samplePokemonList
 import com.ase.pokedex.ui.common.ERROR_INDICATOR_TAG
 import com.ase.pokedex.ui.common.LOADING_INDICATOR_TAG
 import junit.framework.TestCase.assertEquals
 import org.junit.Rule
 import org.junit.Test
-import java.util.EventListener
 
 class HomeScreenTest {
 

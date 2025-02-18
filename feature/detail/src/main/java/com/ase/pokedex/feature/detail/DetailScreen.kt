@@ -27,11 +27,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
+import com.ase.pokedex.Result
 import com.ase.pokedex.domain.pokemon.models.PokeType
 import com.ase.pokedex.domain.pokemon.models.Pokemon
 import com.ase.pokedex.ex.getIcon
@@ -42,23 +44,41 @@ import com.ase.pokedex.ui.theme.PokeBackgroundLight
 import com.ase.pokedex.ui.theme.PokeGray
 import com.ase.pokedex.ui.theme.PokeGrayLight
 
+const val POKEMON_FAVORITE_BUTTON = "PokemonFavoriteButton"
+const val BACK_BUTTON = "BackButton"
+
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
 fun DetailScreen(
-    vm: DetailViewModel = hiltViewModel(),
+    viewModel: DetailViewModel = hiltViewModel(),
     onBack: () -> Unit = {},
 ) {
-    val state by vm.state.collectAsState()
-    val detailState = rememberDetailState(state)
+    val state by viewModel.state.collectAsState()
+
+    DetailContent(
+        state = state,
+        onBack = onBack,
+        onFavoriteClicked = { viewModel.onFavoriteClicked() }
+    )
+}
+
+@Composable
+@OptIn(ExperimentalMaterial3Api::class)
+fun DetailContent(
+    state: Result<Pokemon>,
+    onBack: () -> Unit,
+    onFavoriteClicked: () -> Unit,
+) {
+    val viewState = rememberDetailState(state)
 
     Screen(
         state = state,
-        scrollBehavior = detailState.scrollBehavior,
+        scrollBehavior = viewState.scrollBehavior,
         topAppBar = { scrollBehavior ->
             PokeTopAppBar(
-                title = detailState.pokemon?.name ?: "",
+                title = viewState.pokemon?.name ?: "",
                 navigationIcon = {
-                    IconButton(onClick = onBack) {
+                    IconButton(onClick = onBack, modifier = Modifier.testTag(BACK_BUTTON)) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back"
                         )
@@ -82,7 +102,11 @@ fun DetailScreen(
                     .padding(16.dp)
             ) {
                 Spacer(modifier = Modifier.weight(1f))
-                Button(onClick = { vm.onFavoriteClicked() }, modifier = Modifier.fillMaxWidth()) {
+                Button(
+                    onClick = onFavoriteClicked, modifier = Modifier
+                        .fillMaxWidth()
+                        .testTag(POKEMON_FAVORITE_BUTTON)
+                ) {
                     val text = if (pokemon.favorite) "Quitar de favoritos" else "Añadir a favoritos"
                     Text(text = text)
                 }
@@ -105,7 +129,7 @@ private fun PokemonHeader(pokemon: Pokemon) {
     ) {
         AsyncImage(
             model = pokemon.image,
-            contentDescription = pokemon.name,
+            contentDescription = "Image ${pokemon.name}",
             contentScale = ContentScale.FillHeight,
             modifier = Modifier
                 .height(165.dp)
